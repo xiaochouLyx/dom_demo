@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>DOM简单练习</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>简易留言板</h1>
+    <input id="content" type="text">
+    <input id="btn" type="button" value="留言">
+    <div id="content_c"></div>
+</body>
+<script>
+    window.onload = function () {
+        var Content = document.getElementById("content");
+        var Btn = document.getElementById("btn");
+        var Content_c = document.getElementById("content_c");
+        Btn.onclick = function () {
+            var Content_value = Content.value;
+            var sContent = document.createElement("div");
+            sContent.innerHTML = Content_value + "<span>删除</span>";
+            //sContent.value = Content_value +"<span>删除</span>";     为什么用value没用？
+            Content_c.appendChild(sContent);
+            // Content_value = "";  没用
+            // Content.innerHTML = "";  没用
+            Content.value = "";  //有用 为什么？
+            var span_list = document.getElementsByTagName("span");
+            for (var i = 0; i < span_list.length; i++) {
+                span_list[i].onclick = function () {
+                    Content_c.removeChild(this.parentNode);
+                }
+            }
+            //为什么放在外面没有用？
+        }
+    }
+</script>
+
+</html>

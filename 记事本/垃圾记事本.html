@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="./iconfont.css">
+    <title>垃圾记事本</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        p {
+            width: 40%;
+            font-size: 50px;
+            font-weight: bold;
+            text-align: center;
+            height: 100px;
+            margin: 30px auto;
+        }
+
+        #content {
+            width: 25%;
+            height: 30px;
+            margin-left: 35%;
+        }
+
+        #btn {
+            width: 5%;
+            height: 30px;
+            margin-left: 3%;
+        }
+
+        #bigBox {
+            width: 90%;
+            margin: 50px auto;
+        }
+
+        .small_box {
+            width: 20%;
+            margin: 50px 2%;
+            height: 200px;
+            border: 1px solid black;
+            display: inline-block;
+        }
+
+        .small_box_title {
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .small_box_title span {
+            float: right;
+            margin-right: 10px;
+            margin-top: 10px;
+            line-height: 30px;
+        }
+
+        .small_box_content {
+            width: 99%;
+            height: 150px;
+        }
+        .iconfont{
+            color: red;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>垃圾记事本</p>
+    <input type="text" id="content" onkeydown="sub(event)">
+    <input type="button" id="btn" value="提交" onclick="creat()">
+    <div id="bigBox"></div>
+
+    <script>
+       
+        function sub(event) {
+            if (event.keyCode == 13) {
+                creat();
+            }
+            else {
+                return false;
+            }
+        }
+
+        function creat(){
+                var span_list = document.getElementsByTagName("span");
+                var btn = document.getElementById("btn");
+                var small_box_title_get = document.getElementsByClassName("small_box_title");
+                var content = document.getElementById("content");
+                var big_box = document.getElementById("bigBox");
+                var content_value = content.value;
+                if (content_value == "") {
+                    alert("还没有输入内容哦！");
+                    return false;
+                }
+                var small_box = document.createElement("div");
+                small_box.className = "small_box";
+                big_box.appendChild(small_box);
+                
+                var small_box_title = document.createElement("div");
+                small_box_title.className = "small_box_title";
+                small_box.appendChild(small_box_title);
+                for(var i = 0;i<=span_list.length;i++){
+                    small_box_title.innerHTML = "node" + i + "<span class='iconfont icon-shanchu'></span>"; 
+                }
+                
+                var small_box_content = document.createElement("textarea");
+                small_box_content.className = "small_box_content";
+                small_box_content.innerHTML = content_value;
+                small_box.appendChild(small_box_content);
+                content.value = "";
+               
+                for (var i = 0; i < span_list.length; i++) {
+                            small_box_title_get[i].onclick = function () {
+                            big_box.removeChild(this.parentNode);
+                            for(var a=0;a< small_box_title_get.length;a++){
+                                var j = a+1;
+                                small_box_title_get[a].innerHTML = "node" + j + "<span class='iconfont icon-shanchu'></span>";
+                            }
+                        }   
+                }
+
+               
+                
+            }
+
+    </script>
+</body>
+
+</html>
